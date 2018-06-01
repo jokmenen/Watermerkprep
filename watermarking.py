@@ -1,6 +1,6 @@
 
 
-def watermerk(plaatje, pnaam, watermerk,oFolder):
+def watermerk(plaatje, pnaam, watermerk,oFolder,ext):
     try:
         #assumes pictures are already orientation-corrected
         wm = watermerk
@@ -21,19 +21,21 @@ def watermerk(plaatje, pnaam, watermerk,oFolder):
             im.paste(wm, (im.width-wm.width,im.height-wm.height),wm)
         elif watermerk.format == "MPO":
             im.paste(wm, (im.width - wm.width, im.height - wm.height))
-        im.save(oFolder  + file[:-4] + "-Watermarked"+file[-4:], "JPEG")
+        im.save(oFolder  + file[:-len(ext)] + "-Watermarked"+ext)
+        
     except Exception as ex :
-        print(ex)
+        print(ex,"sukkel")
 
 if __name__ == '__main__':
     from PIL import Image, ExifTags
     import os, watermarking, sys
 
-    fname = "Test.JPG"
+    fname = "download.jpg"
     im = Image.open(fname)
-    wm = Image.open("Test.JPG")
+    wm = Image.open("wm.png")
     print(wm.format)
-
-    watermerk(im,fname,wm)
+    print(os.getcwd())
+    watermerk(im,fname,wm,os.getcwd()+'\\')
+    input("bloep")
 
 
